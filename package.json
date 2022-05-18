@@ -1,10 +1,10 @@
 {
   "name": "proc-env-helper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "proc-env-helper when called will require a proc env to be set or throw. Alternatively a default can be set when proc env not found.",
   "licence": "MIT",
   "main": "./build/index.js",
-  "types": "./build/index.d.ts",
+  "types": "./build/ProcEnvHelper.d.ts",
   "scripts": {
     "install:githooks": "cp ./githooks/* .git/hooks",
     "test": "npm run lint && npm run test:unit",
