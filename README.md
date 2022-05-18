@@ -1,23 +1,47 @@
-# typescript-npm-package-tpl
+# proc-env-helper
 
-Use this package to create a typescript based package for npm.
+Use to force your nodejs app to require a process env to be set, or use to ensure a default value is set.
 
-Ensure you update:
-- package.json
-- .github/ISSUE_TEMPLATE files
-- githooks to your style
-- CODE_OF_CONDUCT
-- CONTRIBUTING
-- LICENCE
-- This readme file :)
-- Any anything else.
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-## ttypescript:
-This uses ttypescript which allows use of the ts-transform-paths plugin found in the tsconfig.
-This basically transforms the output of any shortcuts (eg `@/myfile.ts`) to the full relative paths, without this the shortcuts break as node cannot resolve them.
+- [proc-env-helper](#proc-env-helper)
+  - [Available helpers](#available-helpers)
+  - [Example](#example)
 
-## CI + Coverage
-This is ready to go with travis and codecov, though you will need to create an account on both of these services and point them to the correct repos, but the travis.yml is about all you should need and the codecov as seen in the package.json file.
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Missed anything?
-Create a pull request and get your input merged in, thanks.
+## Available helpers
+
+Method: withDefault
+```
+import ProcEnvHelper from 'proc-env-helper';
+ProcEnvHelper.withDefault('SWAGGER_FILE', 'latest')
+```
+
+Method: required
+```
+import ProcEnvHelper from 'proc-env-helper';
+ProcEnvHelper.required('JWT_SECRET')
+```
+
+## Example
+```typescript
+import dotenv from 'dotenv';
+import ProcEnvHelper from 'proc-env-helper';
+import someHelper from './helpers/someHelper';
+
+dotenv.config();
+
+export default {
+  // Swagger file
+  swaggerFile: ProcEnvHelper.withDefault('SWAGGER_FILE', 'latest'),
+  jwtSecret: ProcEnvHelper.required('JWT_SECRET'),
+
+  port: ProcEnvHelper.withDefault('PORT', 666),
+  
+  somethingElse: someHelper(process.env.PROC_ENV_HELPER_PORT), // PROC_ENV_HELPER__PORT is injected into the process.env and can be accessed this way 
+  somethingOther: someHelper(process.env.PROC_ENV_HELPER_JWT_SECRET), // PROC_ENV_HELPER__JWT_SECRET is injected into the process.env and can be accessed this way 
+}
+```

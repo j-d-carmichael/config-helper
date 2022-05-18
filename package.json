@@ -1,9 +1,10 @@
 {
-  "name": "typescript-npm-package-tpl",
+  "name": "proc-env-helper",
   "version": "1.0.0",
-  "description": "A set of files to get moving for a typescript npm package, remove all not required",
+  "description": "proc-env-helper when called will require a proc env to be set and throw, or you can set a default when proc env not found.",
   "licence": "MIT",
   "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "scripts": {
     "install:githooks": "cp ./githooks/* .git/hooks",
     "test": "npm run lint && npm run test:unit",
@@ -12,23 +13,20 @@
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "build:tocs": "npx doctoc .",
-    "build": "rm -fR ./build && ttsc -p . --declaration --declarationDir build",
-    "build:watch": "ttsc --watch -p .",
-    "start": "node cli.js",
+    "build": "rm -fR ./build && tsc -p . --declaration --declarationDir build",
+    "build:watch": "tsc --watch -p .",
     "prepublishOnly": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
-    "url": "??"
+    "url": "https://github.com/j-d-carmichael/proc-env-helper"
   },
   "keywords": [
     "TypeScript"
   ],
-  "dependencies": {
-    "tslib": "^2.3.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^27.5.1",
     "@types/node": "^14.18.10",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
@@ -37,7 +35,7 @@
     "eslint-plugin-deprecate": "^0.7.0",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.3",
-    "ttypescript": "^1.5.13",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "tslib": "^2.3.1"
   }
 }

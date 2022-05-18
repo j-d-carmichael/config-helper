@@ -1,5 +1,2 @@
 import ProcEnvHelper from './ProcEnvHelper';
-
-export {
-  ProcEnvHelper
-};
+export { ProcEnvHelper };
