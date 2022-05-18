@@ -2,6 +2,9 @@
 
 Use to force your nodejs app to require a process env to be set, or use to ensure a default value is set.
 
+The original process env will also be cast to the appropriate type via castValue.
+
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
@@ -15,15 +18,17 @@ Use to force your nodejs app to require a process env to be set, or use to ensur
 ## Available helpers
 
 Method: withDefault
+Summary: Returns the process.env value requested via ProcEnvHelper.castValue or sets a process.env value based on the default given and returns it.
 ```
 import ProcEnvHelper from 'proc-env-helper';
-ProcEnvHelper.withDefault('SWAGGER_FILE', 'latest')
+ProcEnvHelper.getOrSetDefault('SWAGGER_FILE', 'latest')
 ```
 
 Method: required
+Summary: Returns the process.env value requested via ProcEnvHelper.castValue or if not found,  `throw new Error(...)`
 ```
 import ProcEnvHelper from 'proc-env-helper';
-ProcEnvHelper.required('JWT_SECRET')
+ProcEnvHelper.requiredOrThrow('JWT_SECRET')
 ```
 
 ## Example
@@ -36,12 +41,12 @@ dotenv.config();
 
 export default {
   // Swagger file
-  swaggerFile: ProcEnvHelper.withDefault('SWAGGER_FILE', 'latest'),
-  jwtSecret: ProcEnvHelper.required('JWT_SECRET'),
+  swaggerFile: ProcEnvHelper.getOrSetDefault('SWAGGER_FILE', 'latest'),
+  jwtSecret: ProcEnvHelper.requiredOrThrow('JWT_SECRET'),
 
-  port: ProcEnvHelper.withDefault('PORT', 666),
+  port: ProcEnvHelper.getOrSetDefault('PORT', 666),
   
-  somethingElse: someHelper(process.env.PROC_ENV_HELPER_PORT), // PROC_ENV_HELPER__PORT is injected into the process.env and can be accessed this way 
-  somethingOther: someHelper(process.env.PROC_ENV_HELPER_JWT_SECRET), // PROC_ENV_HELPER__JWT_SECRET is injected into the process.env and can be accessed this way 
+  // If PORT was not found via getOrSetDefault, it will be now be set as the default provided
+  somethingElse: someHelper(process.env.PORT)
 }
 ```

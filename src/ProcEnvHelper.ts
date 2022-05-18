@@ -2,7 +2,7 @@ export default class ProcEnvHelper {
   /**
    * Casts to boolean or number values of input strings
    */
-  static returnValue (value: any) {
+  static castValue (value: any) {
     if (value === 'true') {
       return true;
     }
@@ -34,16 +34,7 @@ export default class ProcEnvHelper {
     return value;
   }
 
-  static setConfigHelperProcEnv (environmentVariable: string, value: any): void {
-    process.env['PROC_ENV_HELPER_' + environmentVariable] = value;
-  }
-
-  /**
-   * Ensures that the given string representation of the envVar exists.
-   * @param environmentVariable
-   * @returns {string | number | boolean}
-   */
-  static required (environmentVariable: string) {
+  static requiredOrThrow (environmentVariable: string) {
     const value = process.env[environmentVariable];
     if (!value) {
       throw new Error(`
@@ -52,8 +43,8 @@ export default class ProcEnvHelper {
   Required environment variable ${environmentVariable} is not defined.
 `);
     }
-    ProcEnvHelper.setConfigHelperProcEnv(environmentVariable, value);
-    return ProcEnvHelper.returnValue(value);
+    process.env[environmentVariable] = value;
+    return ProcEnvHelper.castValue(value);
   }
 
   /**
@@ -62,9 +53,9 @@ export default class ProcEnvHelper {
    * @param defaultValue
    * @returns {string | any | *}
    */
-  static withDefault (environmentVariable: string, defaultValue: any) {
-    const value = process.env[environmentVariable] ? ProcEnvHelper.returnValue(process.env[environmentVariable]) : defaultValue;
-    ProcEnvHelper.setConfigHelperProcEnv(environmentVariable, value);
+  static getOrSetDefault (environmentVariable: string, defaultValue: any) {
+    const value = process.env[environmentVariable] ? ProcEnvHelper.castValue(process.env[environmentVariable]) : defaultValue;
+    process.env[environmentVariable] = value;
     return value;
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "proc-env-helper",
-  "version": "1.0.0",
-  "description": "proc-env-helper when called will require a proc env to be set and throw, or you can set a default when proc env not found.",
+  "version": "1.0.1",
+  "description": "proc-env-helper when called will require a proc env to be set or throw. Alternatively a default can be set when proc env not found.",
   "licence": "MIT",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -33,8 +33,8 @@
     "@zerollup/ts-transform-paths": "^1.7.18",
     "eslint": "^8.8.0",
     "eslint-plugin-deprecate": "^0.7.0",
-    "jest": "^27.5.1",
-    "ts-jest": "^27.1.3",
+    "jest": "^28.1.0",
+    "ts-jest": "^28.0.2",
     "typescript": "^4.3.5",
     "tslib": "^2.3.1"
   }
