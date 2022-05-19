@@ -17,15 +17,17 @@ The original process env will also be cast to the appropriate type via castValue
 
 ## Available helpers
 
-Method: withDefault
-Summary: Returns the process.env value requested via ProcEnvHelper.castValue or sets a process.env value based on the default given and returns it.
+#### getOrSetDefault
+- **Method**: withDefault
+- **Summary**: Returns the process.env value requested via ProcEnvHelper.castValue. If not found, this will 1st set a process.env value based on the default given and then return it.
 ```
 import ProcEnvHelper from 'proc-env-helper';
 ProcEnvHelper.getOrSetDefault('SWAGGER_FILE', 'latest')
 ```
 
-Method: required
-Summary: Returns the process.env value requested via ProcEnvHelper.castValue or if not found,  `throw new Error(...)`
+#### requiredOrThrow
+- **Method**: required
+- **Summary**: Returns the process.env value requested via ProcEnvHelper.castValue or if not found,  `throw new Error(...)`
 ```
 import ProcEnvHelper from 'proc-env-helper';
 ProcEnvHelper.requiredOrThrow('JWT_SECRET')
